@@ -6,6 +6,7 @@
 
 const { app, BrowserWindow, globalShortcut, ipcMain, clipboard, screen } = require('electron');
 const windowStateKeeper = require('electron-window-state');
+const menu = require('./menu');
 
 
 
@@ -45,15 +46,22 @@ function createWindow()  {
             mainWindow = null
         })
 
-        
 
-        mainWindow.once('ready-to-show', mainWindow.show);
+        mainWindow.once('ready-to-show', () => {
+          debugger;
+          mainWindow.show();
+        });
 
 }//End of CreateWindow function
 
 // Electron `app` is ready
 app.on('ready', () => { 
+  debugger;
 	primaryDisplay = screen.getPrimaryDisplay();
+  menu.menuPrimaryDisplay = primaryDisplay;
+
+  //setting application menu before the main window is created
+  menu.setMenu();
   createWindow();
 
 });
@@ -79,7 +87,10 @@ app.whenReady().then(() => {
 		console.log('registration of keyboard shortcut failed')
 	}
 
-	// Check whether a shortcut is registered.
-	//console.log(globalShortcut.isRegistered(toggleDevToolsShortcutStr))
 })
+
+
+ipcMain.handle('give-me-the-app-name', (e, data) => {
+  e.sender.send('take-the-app-name', app.getName());
+});
 

@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.0",
     "bootstrap": "^4.6.0",
+    "devtools-detect": "^3.0.1",
     "electron-window-state": "^5.0.3",
     "install": "^0.13.0",
     "npm": "^6.14.9",
@@ -26,6 +27,8 @@
   },
   "scripts": {
     "start-all": "npx nf start",
+    "debug-all": "npx nf --procfile debuggingProcfile start",
+    "inspect-all": "npx nf --procfile inspectionProcfile start",
     "start-react": "react-scripts start",
     "build-react": "react-scripts build",
     "test-react": "react-scripts test",

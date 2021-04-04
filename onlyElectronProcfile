@@ -1,0 +1,1 @@
+electron:node src/wait-for-react.js
